@@ -1,8 +1,9 @@
 share
 =====
 
-1. weibo
-2. qq
+* weibo
+* qq
 
-a. link to 
-b. post a "大灰狼"
+### setp
+1. link to xxx
+2. post a "大灰狼"
