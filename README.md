@@ -1,5 +1,5 @@
 share
 =====
 
-1.weibo
-2.qq
+1. weibo
+2. qq
