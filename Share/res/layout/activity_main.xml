@@ -21,7 +21,8 @@
         android:id="@android:id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="share to t.qq" />
+        android:text="share to t.qq" 
+        android:visibility="gone"/>
 
     <Button
         android:id="@android:id/button3"
@@ -35,5 +36,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="share to weixin"/>
+    
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="share to weixin friends"/>
 
 </LinearLayout>

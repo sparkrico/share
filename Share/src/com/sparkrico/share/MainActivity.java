@@ -3,8 +3,11 @@ package com.sparkrico.share;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.webview.OAuthV2AuthorizeWebView;
@@ -26,6 +29,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	Share2QZone share2qZone;
 	// weixin
 	private Share2Weixin share2Weixin;
+	
+	Handler mHandler = new Handler(){
+		public void dispatchMessage(android.os.Message msg) {
+			String message = ((String)msg.obj);
+			if(!TextUtils.isEmpty(message))
+				Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+		};
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(android.R.id.button2).setOnClickListener(this);
 		findViewById(android.R.id.button3).setOnClickListener(this);
 		findViewById(R.id.button4).setOnClickListener(this);
+		findViewById(R.id.button5).setOnClickListener(this);
 	}
 
 	@Override
@@ -48,6 +60,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case android.R.id.button1:
 			share2Weibo.auth();
+//			share2Weibo.share2("小红帽");
 			break;
 		case android.R.id.button2:
 			share2TencentWeibo.auth();
@@ -58,6 +71,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.button4:
 			share2Weixin.auth();
 			share2Weixin.share2("小红帽大灰狼");
+			break;
+		case R.id.button5:
+			share2Weixin.auth();
+			if(share2Weixin.supportShare2WeixinFriends())
+				share2Weixin.share2WeixinFriends("小红帽大灰狼");
+			else
+				Toast.makeText(this, "当前微信版本不支持分享到朋友圈！", Toast.LENGTH_SHORT).show();
 			break;
 
 		default:

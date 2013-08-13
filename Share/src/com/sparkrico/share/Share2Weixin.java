@@ -1,6 +1,7 @@
 package com.sparkrico.share;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
@@ -41,6 +42,26 @@ public class Share2Weixin implements Share {
 		msg.description = content;
 		//3
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = String.valueOf(System.currentTimeMillis());
+		req.message = msg;
+		//
+		api.sendReq(req);
+	}
+	
+	public boolean supportShare2WeixinFriends(){
+		return api.getWXAppSupportAPI() >= 0x21020001;
+	}
+	
+	public void share2WeixinFriends(String content) {
+		//1
+		WXTextObject wxTextObject = new WXTextObject(content);
+		//2
+		WXMediaMessage msg = new WXMediaMessage();
+		msg.mediaObject = wxTextObject;
+		msg.description = content;
+		//3
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.scene = SendMessageToWX.Req.WXSceneTimeline;
 		req.transaction = String.valueOf(System.currentTimeMillis());
 		req.message = msg;
 		//

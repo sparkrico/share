@@ -3,9 +3,15 @@ package com.sparkrico.share;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,7 +31,7 @@ import com.weibo.sdk.android.sso.SsoHandler;
  */
 public class Share2Weibo implements Share, RequestListener{
 	
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	
 	private static final String TAG = "Share2Weibo";
 	
@@ -132,12 +138,26 @@ public class Share2Weibo implements Share, RequestListener{
 
 	@Override
 	public void onError(WeiboException e) {
+		e.printStackTrace();
+		String errorJson = e.getMessage();
+		try {
+			JSONObject errorJsonObject = new JSONObject(errorJson);
+			String error = errorJsonObject.getString("error");
+			if(!TextUtils.isEmpty(error)){
+				Handler h = ((MainActivity)mContext).mHandler;
+				h.sendMessage(Message.obtain(h, 0, error));
+			}
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+		
 		if(DEBUG)
 			Log.d(TAG, e.getMessage());
 	}
 
 	@Override
 	public void onIOException(IOException e) {
+		e.printStackTrace();
 		if(DEBUG)
 			Log.d(TAG, e.getMessage());
 	}
