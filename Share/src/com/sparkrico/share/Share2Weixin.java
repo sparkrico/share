@@ -1,7 +1,6 @@
 package com.sparkrico.share;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
@@ -16,7 +15,7 @@ import com.tencent.mm.sdk.openapi.WXTextObject;
  */
 public class Share2Weixin implements Share {
 	
-	private static final String APP_ID = "wx95c3e38e201ac6d8";
+	private static final String APP_ID = "wxd1278d2aeddf72a8";
 	
 	private IWXAPI api;
 	
